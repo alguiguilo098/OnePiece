@@ -2,13 +2,28 @@ services:
   redis:
     image: redis:7.4-alpine
     restart: always
+    command: >
+      redis-server
+      --save 20 1
+      --loglevel warning
+      --requirepass yourpassword
     ports:
       - "6379:6379"
-    command: redis-server --save 20 1 --loglevel warning --requirepass yourpassword
     volumes:
       - cache:/data
-  
+
+  postgres:
+    image: postgres:15.4-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: calvo
+      POSTGRES_PASSWORD: calvo
+      POSTGRES_DB: email_service
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
 volumes:
   cache:
-    driver: local
   pgdata:
