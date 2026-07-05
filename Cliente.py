@@ -3,19 +3,17 @@ import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 class Cliente:
-    def __init__(self,emailsender,password,nickname):
+    def __init__(self,emailsender,password):
         self.emailsender = emailsender
         self.password = password
-        self.nickname = nickname
-    def __str__(self):
-        return f"{self.nickname}"
     
+    def __str__(self):
+        return f"Cliente(email={self.emailsender})"
     def get_email(self):
         return self.emailsender
     def get_nickname(self):
         return self.nickname
-    def set_email(self,email):
-        self.emailsender = email
+    
     
     def send_email(self, subject, message,emailrecive):
         msg = MIMEMultipart()
