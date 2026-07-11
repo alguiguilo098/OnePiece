@@ -1,16 +1,4 @@
 services:
-  redis:
-    image: redis:7.4-alpine
-    restart: always
-    command: >
-      redis-server
-      --save 20 1
-      --loglevel warning
-      --requirepass yourpassword
-    ports:
-      - "6379:6379"
-    volumes:
-      - cache:/data
 
   postgres:
     image: postgres:15.4-alpine

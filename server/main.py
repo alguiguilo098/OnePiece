@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-import server.EmailService as EmailService
+import EmailService as EmailService
 from dto.LoginDTO import LoginDTO
 from dto.SenderDTO import SenderDTO
-from server.PyPostgres import PyPostgres
+from PyPostgres import PyPostgres
 from dotenv import load_dotenv
 import os
 
