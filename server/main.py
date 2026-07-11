@@ -1,13 +1,13 @@
 from fastapi import FastAPI
-import Cliente
+import server.EmailService as EmailService
 from dto.LoginDTO import LoginDTO
 from dto.SenderDTO import SenderDTO
-from PyPostgres import PyPostgres
+from server.PyPostgres import PyPostgres
 from dotenv import load_dotenv
 import os
 
 app = FastAPI()
-cliente =Cliente.Cliente("","")
+cliente =EmailService.EmailService("","")
 load_dotenv()
 
 pyconn = PyPostgres(
@@ -22,7 +22,7 @@ pyconn.create_table()
 @app.post("/login")
 def login(login_dto: LoginDTO):
     global cliente
-    cliente = Cliente.Cliente(login_dto.email, login_dto.password)
+    cliente = EmailService.EmailService(login_dto.email, login_dto.password)
     return {"message": f"Client set: {cliente}"}
 
 @app.post("/send_email")

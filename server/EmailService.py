@@ -2,7 +2,7 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-class Cliente:
+class EmailService:
     def __init__(self,emailsender,password):
         self.emailsender = emailsender
         self.password = password
