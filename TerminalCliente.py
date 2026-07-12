@@ -6,7 +6,10 @@ class ClienteTerminal:
         load_dotenv()
         self.__host = os.getenv("serverip", "localhost")
         self.__port = int(os.getenv("port", 8000))
-   
+    def __sendmanyemail(self, subject, message, recipient_email):
+        for email in recipient_email:
+            requests.post(f"http://{self.__host}:{self.__port}/send_email", 
+                            json={"subject": subject, "message": message, "email": email})
     def __authenticate(self, email, password):
         requests.post(f"http://{self.__host}:{self.__port}/login",
                       json={"email": email, "password": password})
@@ -30,6 +33,8 @@ class ClienteTerminal:
             print("2. Send Email")
             print("3. List Emails")
             print("4. Exit")
+            print("5. Send Many Emails")
+            print()
             choice = input("Enter your choice: ")
             if choice == '1':
                 email = input("Enter your email: ")
@@ -46,6 +51,12 @@ class ClienteTerminal:
             elif choice == '4':
                 print("Exiting...")
                 break
+            elif choice == '5':
+                subject = input("Enter the subject: ")
+                message = input("Enter the message: ")
+                recipient_emails = input("Enter the recipient's emails (comma-separated): ").split(",")
+                self.__sendmanyemail(subject, message, recipient_emails)
+                print(f"Emails sent to {recipient_emails} with subject: {subject}")
             else:
                 print("Invalid choice. Please try again.")
     
